@@ -50,24 +50,14 @@
                   
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="col-sm-6 col-md-6">
+                      <div class="col-sm-6 col-md-12">
                       <div class="form-group">
                         <label for="name">Title<span style="color:red;" >*</span></label>
                         <input type="text" autocomplete="off" class="form-control" id="menu_title" name="menu_title" placeholder="Enter Menu Title" required="true" data-parsley-errors-container="#title_error" data-parsley-error-message="Please enter title.">
                          <div id="#title_error" style="color:red;"></div>
                       </div>
                     </div>
-                    <div class="col-sm-6 col-md-5">
-                      <div class="form-group">
-                        <label for="name">Cloude Kitchen<span style="color:red;" >*</span></label>
-                         <select class="form-control " id="kitchen_id" name="kitchen_id"required="true" data-parsley-errors-container="#kitchen_error" data-parsley-error-message="Please select kitchen.">
-                          <option value="">-Select Kitchen-</option>
-                          @foreach($kitchen as $cvalue)
-                          <option value="{{$cvalue->kitchen_id}}">{{$cvalue->kitchen_name}}</option>
-                          @endforeach
-                         </select>
-                      </div> <div id="#kitchen_error" style="color:red;"></div>
-                    </div>
+                    
                     <div class="col-sm-6 col-md-4">
                       <div class="form-group">
                         <label for="name">Menu Price<span style="color:red;" >*</span></label>

@@ -99,7 +99,7 @@ class MenuController extends Controller
                 'calories'                =>'required',
                 'item_id'                 =>'required',
                 'menu_price'              =>'required',
-                'kitchen_id'              =>'required',
+                //'kitchen_id'              =>'required',
                 'proteins'                =>'required',
                 'fats'                    =>'required',
                 'carbohydrates'           =>'required',
@@ -134,7 +134,7 @@ class MenuController extends Controller
         $arr_data['menu_title']                = $request->input('menu_title');
         $arr_data['item_id']                   = $request->input('item_id');
         $arr_data['menu_price']                = $request->input('menu_price');
-        $arr_data['kitchen_id']                = $request->input('kitchen_id');
+        //$arr_data['kitchen_id']                = $request->input('kitchen_id');
         $arr_data['menu_description']          = $request->input('menu_description');
         $arr_data['what_makes_dish_special']   = $request->input('what_makes_dish_special');
         $arr_data['specification_id']          = implode(",",$request->input('specification_id'));
@@ -308,7 +308,7 @@ class MenuController extends Controller
                 'calories'                  => 'required',
                 'proteins'                  => 'required',
                 'menu_price'                => 'required',
-                'kitchen_id'                => 'required',
+                //'kitchen_id'                => 'required',
                 'fats'                      => 'required',
                 'carbohydrates'             => 'required',
                 'what_makes_dish_special'   => 'required',
@@ -345,7 +345,7 @@ class MenuController extends Controller
         $arr_data['menu_category_id']          = $request->input('category_id');
         $arr_data['menu_title']                = $request->input('menu_title');
         $arr_data['menu_price']                = $request->input('menu_price');
-        $arr_data['kitchen_id']                = $request->input('kitchen_id');
+        //$arr_data['kitchen_id']                = $request->input('kitchen_id');
         $arr_data['item_id']                   = $request->input('item_id');
         $arr_data['menu_description']          = $request->input('menu_description');
         $arr_data['what_makes_dish_special']   = $request->input('what_makes_dish_special');

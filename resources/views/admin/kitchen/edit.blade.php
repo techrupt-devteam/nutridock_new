@@ -168,13 +168,13 @@
             </div>
           </div>
           <div class="row" style="margin: 5px -5px;">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title"><i class="fa fa-gear"></i> Kitchen settings</h3>
                 </div>
                 <div class="box-body">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <?php 
                     //dd($user_data);
                    // $user_data         = explode(",",$data['user_id']); ?>
@@ -220,39 +220,16 @@
                         </tr> -->
                         @endforeach
                           </tbody>
-                        
                       </table>
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="area_id">Assign Subscription Plan</label>
-                      <table id="sub-item"  class="table table-striped table-bordered ">
-                        <div id="plan_error" style="color:red;"></div>
-                        <thead class="btn-default">
-                         <!--   <tr><td colspan="3">  </td></tr>   -->
-                        <th width="5%"></th>
-                          <th>Subscription Plan</th>
-                            </thead>
-                        <tbody>
-                        
-                        @foreach($subscriptionplan as $key => $svalue)
-                        <tr>
-                          <td><input type="checkbox" name="subscription_plan[]" class="checkbox_allmenu" id="subscription_plan" value="{{$svalue->sub_plan_id}}" <?php echo (in_array($svalue->sub_plan_id, $subscription_data) ? 'checked' : '')?> required data-parsley-errors-container="#plan_error" data-parsley-error-message="Please select at least one subscription plan"></td>
-                          <td>{{$svalue->sub_name}}</td>
-                        </tr>
-                        @endforeach
-                          </tbody>
-                        
-                      </table>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
+              <div class="col-md-6">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Assign Menu To Kitchen</h3>
@@ -281,6 +258,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
+          
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
@@ -325,7 +305,7 @@
       "scrollCollapse": true,
       "info": false, 
       "paging": false
-  }); 
+  });  
     $(document).ready(function() 
     {
         get_City(); 

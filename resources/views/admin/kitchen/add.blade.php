@@ -165,13 +165,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title"><i class="fa fa-gear"></i> Kitchen settings</h3>
                 </div>
                 <div class="box-body">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="form-group">
                       <label for="area_id">Assign User To Kitchen </label>
                       <div id="checkbox_error" style="color:red;"></div>
@@ -210,36 +210,10 @@
                       </table>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="area_id">Assign Subscription Plan</label>
-                  <div id="plan_error" style="color:red;"></div>
-                      <table id="sub-item"  class="table table-striped table-bordered ">
-                        <thead class="btn-default">
-                       <!--  <tr><td colspan="3">  </td></tr>   -->
-                        <th width="5%"></th>
-                          <th>Subscription Plan</th>
-                            </thead>
-                        <tbody>
-                        
-                        @foreach($subscriptionplan as $key => $svalue)
-                        <tr>
-                          <td><input type="checkbox" name="subscription_plan[]" class="checkbox_allmenu" id="subscription_plan" value="{{$svalue->sub_plan_id}}" required data-parsley-errors-container="#plan_error" data-parsley-error-message="Please select at least one subscription plan">
-                             </td>
-                          <td>{{$svalue->sub_name}}</td>
-                        </tr>
-                        @endforeach
-                          </tbody>
-                        
-                      </table>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
+             <div class="col-md-6">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title"><i class="fa fa-gear"></i> Assign Menu To Kitchen </h3>
@@ -271,11 +245,14 @@
               </div>
             </div>
           </div>
+          <div class="row">
+           
+          </div>
           <div class="box-footer">
             <div class="row">
               <div class="col-md-12">
                 @php $disabled =""; @endphp
-                @if(count($users)==0 || count($subscriptionplan) == 0 || count($menu)==0)
+                @if(count($users)==0 || count($menu)==0)
                   @php $disabled = "disabled"; @endphp 
                 @endif
                 <button type="submit" class="btn btn-primary" <?php echo $disabled; ?>>Submit</button>

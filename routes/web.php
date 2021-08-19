@@ -9,6 +9,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 /* @START: Front End Routes */
 Route::get('/clear', function() {
 	Artisan::call('cache:clear');
@@ -498,10 +499,5 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function ()
 	Route::get('/latlong',	      'Admin\KitchenController@getlatlong');
 	Route::post('/nearKitchen',	  'Admin\KitchenController@nearest_kitchen');
 	
-
-
-
-
-
 });
 /**********************************************************************************************/

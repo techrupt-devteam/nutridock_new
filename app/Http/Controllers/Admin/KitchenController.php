@@ -11,7 +11,6 @@ use App\Models\City;
 use App\Models\State;
 use App\Models\User;
 use App\Models\MenuModel;
-use App\Models\SubscriptionPlan;
 use App\Models\Role;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -23,7 +22,7 @@ use DB;
 use Config;
 class KitchenController extends Controller
 {
-    public function __construct(Kitchen $Kitchen,Location $Location,City $City,State $State,SubscriptionPlan $SubscriptionPlan,KitchenUser $KitchenUser,User $User,MenuModel $MenuModel,Role $Role,KitchenTarget $KitchenTarget)
+    public function __construct(Kitchen $Kitchen,Location $Location,City $City,State $State,KitchenUser $KitchenUser,User $User,MenuModel $MenuModel,Role $Role,KitchenTarget $KitchenTarget)
     {
         $data                         = [];
         $this->base_model             = $Kitchen; 
@@ -35,7 +34,6 @@ class KitchenController extends Controller
         $this->base_user              = $User; 
         $this->base_menu_model        = $MenuModel; 
         $this->base_role              = $Role; 
-        $this->base_subscription_plan = $SubscriptionPlan; 
         $this->title                  = "Cloud Kitchen";
         $this->url_slug               = "kitchen";
         $this->folder_path            = "admin/kitchen/";
@@ -109,13 +107,12 @@ class KitchenController extends Controller
                                 ->join('locations','users.area','=','locations.id')
                                 ->select('role.role_name','users.*','state.name as state_name','city.city_name','locations.area as area_name')
                                 ->where('users.is_deleted','<>',1)
+                                ->where('users.is_deleted','<>',1)
                                 ->where('users.is_active','=',1)
                                 ->orderBy('users.id', 'DESC')
                                 ->get(); 
         //dd($users);
-        $subscription_plan  = $this->base_subscription_plan->where('is_active','=',1)->where('is_deleted','<>',1)->get();
         $data['page_name']  = "Add";
-        $data['subscriptionplan'] = $subscription_plan;
         $data['menu']       = $menu_model;
         $data['users']      = $users;
         $data['assign_user']= $assign_user;
@@ -155,7 +152,6 @@ class KitchenController extends Controller
 
         
         $menu_data         = implode(",",$request->input('menu'));
-        $subscriptionplan_data = implode(",",$request->input('subscription_plan'));
         $users_data        = implode(",",$request->input('users'));
 
         $arr_data                    = [];
@@ -167,7 +163,6 @@ class KitchenController extends Controller
         $arr_data['pincode']         = $request->input('pincode');
         $arr_data['address']         = $request->input('address');
         $arr_data['menu_id']         = $menu_data;
-        $arr_data['sub_plan_id']     = $subscriptionplan_data;
         $arr_data['lat']             = $request->input('lat');
         $arr_data['lang']            = $request->input('lang');
         $arr_data['process_color']   = $request->input('process_color');
@@ -233,8 +228,7 @@ class KitchenController extends Controller
                                 ->orderBy('users.id', 'DESC')
                                 ->get(); 
         //dd($users);
-        $subscription_plan  = $this->base_subscription_plan->where('is_active','=',1)->where('is_deleted','<>',1)->get();
-
+        
         if(!empty($data))
         {
             $arr_data = $data->toArray();
@@ -244,7 +238,6 @@ class KitchenController extends Controller
         $data['user_data'] = $user_id_arr;
         $data['assign_user'] = $assign_user;
         $data['page_name'] = "Edit";
-        $data['subscriptionplan'] = $subscription_plan;
         $data['menu']       = $menu_model;
         $data['users']      = $users;
         $data['state']     = $state;
@@ -281,7 +274,6 @@ class KitchenController extends Controller
         }
 
         $menu_data                   = implode(",",$request->input('menu'));
-        $subscriptionplan_data       = implode(",",$request->input('subscription_plan'));
        // $users_data                  = implode(",",$request->input('users'));
         $arr_data                    = [];
         $arr_data['kitchen_name']    = $request->input('kitchen_name');
@@ -294,7 +286,6 @@ class KitchenController extends Controller
         $arr_data['lat']             = $request->input('lat');
         $arr_data['lang']            = $request->input('lang');
         $arr_data['menu_id']         = $menu_data;
-        $arr_data['sub_plan_id']     = $subscriptionplan_data;
         $arr_data['process_color']   = $request->input('process_color');
         //$arr_data['user_id']         = $users_data;
         $update_kitchen  = $this->base_model->where(['kitchen_id'=>$id])->update($arr_data);
@@ -358,7 +349,6 @@ class KitchenController extends Controller
         $kitchen           = $this->base_model->where(['kitchen_id'=>$kitchen_id])->first();
         // $user_data      = explode(",",  $kitchen->user_id); 
         $menu_data         = explode(",",  $kitchen->menu_id); 
-        $subscription_data = explode(",",  $kitchen->sub_plan_id); 
         $state             = $this->base_state->get();
         $menu_model        = $this->base_menu_model->select('menu_title','id')->whereIn('id', $menu_data)->get();
         $user_data         = $this->base_kitchen_user->where(['kitchen_id'=>$kitchen_id])->select('user_id')->get();
@@ -380,8 +370,7 @@ class KitchenController extends Controller
                                 ->orderBy('users.id', 'DESC')
                                 ->get(); 
         //dd($users);
-        $subscription_plan  = $this->base_subscription_plan->where('is_active','=',1)->whereIn('sub_plan_id', $subscription_data)->where('is_deleted','<>',1)->get();
-
+       
 
 
 
@@ -402,18 +391,6 @@ class KitchenController extends Controller
                           <div class="panel-body"><ul>';
                             foreach ($users as $key => $uvalue) {
                                  $html .= '<li>'.$uvalue->name.'   Role:-<b>'.$uvalue->role_name.'</b></li>';
-                            }
-                    $html .= '</ul></div>
-                        </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                    <div class="col-md-12"> 
-                        <div class="panel panel-warning">
-                            <div class="panel-heading"><b>Subscription plan</b></div>
-                            <div class="panel-body"><ul>';
-                            foreach ($subscription_plan as $key => $svalue) {
-                                 $html .= '<li>'.$svalue->sub_name.'</li>';
                             }
                     $html .= '</ul></div>
                         </div>
