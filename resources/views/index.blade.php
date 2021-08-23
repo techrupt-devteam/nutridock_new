@@ -1,256 +1,241 @@
+<?php 
+ if(!isset($_SESSION['sessionid']))$_SESSION['sessionid']= Session::getId();
+?>
 @extends('layouts.master')
 @section('content')
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-   <div class="carousel-inner">
-      @foreach($arr_data as $row)
-      <div <?php if($single_data['id']==$row['id']) {?> class="carousel-item active" <?php }else{ ?> class="carousel-item" <?php } ?> >
-         <img src="{{url('')}}/uploads/images/{{$row['image']}}" class="d-block w-100" alt="...">
-         <div class="carousel-caption home-slider">
-            <h3>Thick and Luscious Smoothies</h3>
-            <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.!</p>
-            <a href="http://order.nutridock.com/" target="_tab" class="btn btn-success btn-lg">Order Now</a>
-            <a href="{{url('')}}/subscribe_info" class="btn btn-outline-dark btn-lg">Subscription</a>
-          </div>  
-         <!-- <div class="carousel-caption text-md-left text-center">
-            <div class="" data-aos="zoom-out" data-aos-delay="100">
-              <a href="http://order.nutridock.com/" target="_tab" class="btn btn-success btn-lg">Order Now</a>
-              <a href="{{url('')}}/subscribe_info" class="btn btn-outline-success btn-lg">Subscription</a>
-            </div>
-         </div> -->
-      </div>
-      @endforeach
-   </div>
-   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a>
-   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
-   <div class="sketch-slider" style=""></div>
-</div>
-<style>
-.sketch-slider{position:absolute;bottom:0;left:0;width:100%;z-index:3;background:url('{{url('')}}/public/front/img/sketch.png') repeat center bottom;background-size:auto 100%;height:40px}
-</style>
-<main id="main">
-   <section class="elementor-element">
-      <div class="container">
-         <div class="row" style="display: block;">
-            <h2 class="elementor-heading-title mb-2">Welcome to Nutridock</h2>
-            <p class="elementor-image-box-description text-center"><?php echo $healthyfarm_arr[0]['description']; ?></p>
-         </div>
-         <div class="row">
-            <?php $cnt=0; foreach($healthyfarm_arr as $row): $cnt++; ?>
-            <div class="col-md-4">
-               <div class="elementor-image-box-wrapper">
-                  <?php if($cnt==1){ ?>
-                  <figure class="elementor-image-box-img"> <img src="{{url('')}}/public/front/img/1.jpg" class="attachment-full size-full" alt="" width="66" height="54"> </figure>
-                  <?php }elseif($cnt==2){ ?>
-                  <figure class="elementor-image-box-img"> <img src="{{url('')}}/public/front/img/2.jpg" class="attachment-full size-full" alt="" width="66" height="54"> </figure>
-                  <?php }else{ ?>
-                  <figure class="elementor-image-box-img"> <img src="{{url('')}}/public/front/img/3.jpg" class="attachment-full size-full" alt="" width="66" height="54"> </figure>
-                  <?php } ?>
-                  <div class="elementor-image-box-content">
-                     <p class="elementor-image-box-title"><?php echo $row['title']; ?></p>
-                     <p class="elementor-image-box-description"> <?php echo $row['title_description']; ?></p>
-                  </div>
-               </div>
-            </div>
-            <?php endforeach; ?>
-         </div>
-      </div>
-   </section>
-   <section>
-      <div class="container">
-         <div class="">
-            <h2 class="elementor-heading-title mb-3">Top Categories</h2>
-         </div>
-         <div class="">
-            <div class="w-100 d-flex justify-content-center mt-3">
-               <ul class="nav nav-pills Categories-portfolio" role="tablist">
-                  @foreach($cate_data as $key => $row)
-                  <li class="nav-item">
-                     <a @if($key==0) class="nav-link active" @endif class="nav-link" data-toggle="pill" href="#tab{{$row->menu_category_id}}">
-                     {{$row->name}} </a> 
-                  </li>
-                  @endforeach
-               </ul>
-            </div>
-            <div class="w-100 d-flex justify-content-center mt-2">
-               <div class="tab-content w-100">
-                  @foreach($cate_data as $count => $row)
-                  <div id="tab{{$row->menu_category_id}}" @if($count==0) class="tab-pane active filter-active" @else class="container tab-pane" @endif><br>
-                  <div class="row">
-                     <?php $menu_data=\DB::table('menu')->where('menu_category_id',$row->menu_category_id)->limit(4)->get();
-                        foreach($menu_data as $menu_row):
-                        $menu_id= $menu_row->id; ?>
-                     <div class="col-lg-4 col-xl-3 col-md-6">
-                        <div class="meal-card-wrapper">
-                           <div class="meal-card">
-                              <div class="meal-img">
-                              <a data-toggle="modal" data-target="#myModal" 
-                                id="getMenu" 
-                                data-url="{{ route('dynamicModal',['id'=>$menu_row->id])}}" border="0">
-                                 <img src="{{url('')}}/uploads/images/{{$menu_row->image}}" class="img-fluid">
-                                </a>                              
-                              </div>
-                              <div>
-                                 <div class="nutridock-meal mt-2">
-                                    <div class="nutridock-meal-name text-center"> <span title="{{$menu_row->menu_title}}"> {{$menu_row->menu_title}}</span> </div>
-                                    <div class="nutridock-meal-ingredients text-center"> <span class="txt-side-dish-s" title="with Sautéed Carrots &amp; French Green Beans">{{$menu_row->menu_description}}</span> </div>
-                                    <div class="nutridock-icon over-xs-limit">
-                                       <?php $whats_inside_value=\DB::table('whats_inside')->where('menu_id',$menu_id)->orderBy('id','Asc')->limit('1')->get();
-                                          foreach($whats_inside_value as $whats_inside_row);?>
-                                       <div class="meal-icon">
-                                          <a href="javascript:" class="tooltip" title="" style="margin-left:-40px;color:#5cc62b;cursor: pointer;">
-                                          <span class="tooltiptext">Calories</span><?php $string=$whats_inside_row->unit;$s = ucfirst($string);
-                                             $bar = ucwords(strtolower($s));
-                                             echo $data = preg_replace('/\s+/', '', $bar); ?>
-                                          </a>
-                                       </div>
-                                       <?php $spec_value=\DB::table('menu_specification')->where('menu_id',$menu_id)->get();
-                                          foreach($spec_value as $spec_row):
-                                          $spec_id = $spec_row->specification_id;
-                                          $specifiction = \DB::table('specification')->where('id',$spec_id)->get();
-                                          foreach($specifiction as $specifiction_row); ?>
-                                       <div class="meal-icon">
-                                          <a href="javascript:" class="tooltip" title="<?php echo $specifiction_row->name; ?>">
-                                          <span class="tooltiptext"><?php echo $specifiction_row->name; ?></span>
-                                          <img src="{{url('')}}/uploads/images/{{$spec_row->icon_image}}" alt="<?php echo $specifiction_row->name; ?>">
-                                          </a>
-                                       </div>
-                                       <?php endforeach; ?>
-                                       <div class="meal-icon">
-                                       <a class="tooltip" data-toggle="modal" data-target="#myModal" 
-                                       id="getMenu" 
-                                       data-url="{{ route('dynamicModal',['id'=>$menu_row->id])}}" border="0" style="cursor: pointer;">
-                                          <span class="tooltiptext">show more</span> <img src="{{url('')}}/public/front/img/designs-menu.png" alt="show more"> </a> 
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <?php endforeach; ?>
-                  </div>
-               </div>
-               @endforeach
-            </div>
-         </div>
-      </div>
-      </div>
-      <div class="text-center">
-         <a href="{{url('')}}/menu" class="btn btn-dark btn-lg">View Menu</a>
-      </div>
-   </section>
-   <section class="buyer-section">
-      <div class="container">
-         <div class="" style="display: block;">
-            <h2 class="elementor-heading-title mb-3">Our Pillars</h2>
-            <?php $i=0; foreach($whyus_arr as $key=> $row1)
-               {
-               if($i%2 == 0)
-               {
-               if($i == 0)
-               {
-               echo ' <p class="elementor-image-box-description text-center col-lg-6 mx-auto">'.$row1->description.'</p>';
-               }?>
-            <div class="row mt-3">
-               <div class="col-md-6 col-lg-5 offset-lg-1">
-                  <div class="buyer-img"> <img src="{{url('')}}/uploads/images/{{$row1->image}}" class="img-fluid"> </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="buyer-containt">
-                     <div>
-                        <h3>{{$row1->title}}</h3>
-                        <p>{{$row1->title_description}}</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <?php }else{?>
-            <div class="row mt-4">
-               <div class="col-md-6 col-lg-5 offset-lg-1 order-2">
-                  <div class="buyer-containt">
-                     <div>
-                        <h3>{{$row1->title}}</h3>
-                        <p>{{$row1->title_description}}</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-5 order-md-2">
-                  <div class="buyer-img"> <img src="{{url('')}}/uploads/images/{{$row1->image}}" class="img-fluid"> </div>
-               </div>
-            </div>
-            <?php } ?>
-            <?php $i++; } ?>
-         </div>
-      </div>
-   </section>
-   <section class="newsletter-section orange-bg">
-      <div class="container mt-3">
-         <div class="row">
-            <div class="col-lg-4 col-md-4">
-               <div class="newsletter-image">
-                  <img class="img-responsive center-block" src="{{url('')}}/public/front/img/15.jpg" alt="">
-               </div>
-            </div>
-            <div class="col-lg-8 col-md-8 text-center">
-               <div class="newsletter-title mb-4 text-md-left">
-                  <h4 class="text-dark">
-                    The secret of getting healthy life, with  free guide to easy and enjoyable nutrition, Grab it now!    
-                  </h4>
-               </div>
-               <form action="{{url('/')}}/subscribe" method="post" class="form-inline" onsubmit="return submitUserForm()">
-                  {{csrf_field()}}
-                  <div class="row">
-                     <div class="col-lg-5 col-md-4 col-sm-7 mb-2">
-                        <div class="form-group">
-                           <input type="text" type="name" name="name" placeholder="Enter your name" required class="form-control" id="inputPassword2" required="required">
-                        </div>
-                     </div>
-                     <div class="col-lg-5 col-md-4 col-sm-7 mb-2">
-                        <div class="form-group">
-                           <input type="text" type="email" name="email" placeholder="Enter your email" required class="form-control" id="inputPassword2" required="required">
-                        </div>
-                     </div>
-                     <div class="col-lg-2 col-md-4 col-sm-5 text-md-left text-center">
-                        <input type="submit" class="button black" value="Get it now">
-                     </div>
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
-   </section>
-</main>
-<div  class="modal" id="myModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        </div>
-         
+<div class="page-content-main ">
+<div class="overlay"></div>
+  <div class="my-3 text-center pt-4">
+    <div class="form-check-inline">
+      <label class="form-check-label" style="font-size: 18px;">
+        <input type="radio" class="form-check-input" name="optradio"> Delivery
+      </label>
     </div>
+    <div class="form-check-inline" style="font-size: 18px;">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optradio"> Takeaway
+      </label>
+    </div>
+</div> 
+<div class="container-fluid content-main page-content-list contentmainload readOnlyMenu">
+<div class="row">
+<!-- category section ---->
+<div class="col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 col-left-sidebar">    
+    <nav class="left_category_nav" id="category_scrollspy" style="height: 581px;">
+        <ul class="category_scrollspy-ul">
+            @foreach($category as $cat_value)
+            <li class="nav-item">
+                <a data-scroll="" class="nav-link parentcat" href="#{{strtoupper($cat_value['name'])}}">
+                <p>{{strtoupper($cat_value['name'])}}</p></a>
+            </li>
+            @endforeach
+        </ul>
+    </nav>
 </div>
-<script>
-$(document).ready(function(){
-    $(document).on('click', '#getMenu', function(e) {      
-        e.preventDefault();
-        var url = $(this).data('url');
 
-        $('#dynamic-content').html(url); // leave it blank before ajax call
-        $('#modal-loader').show();      // load ajax loader
+<!-- category section end---->
+ <div class="col col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-right-list">
+   <!-- coupon slider section end---->
+    <div class="item-list-main mt-5s">
+        <!-- main item section start -->
+        <input type="hidden" name="session_id" id="session_id" value="{{$_SESSION['sessionid']}}">
+        <?php $i=1;?>         
+        @foreach($menu_data as $key => $menu_value)
+         @if(!empty($menu_value))   
+        <div class="category-sec" id="{{strtoupper($key)}}">
+                
+            <h2 class="category-title"><span>{{strtoupper($key)}} </span></h2>
+            <ul class="grid-container align-content-center">
+                 @foreach($menu_value as $mvalue) 
+                <li class="foodmenu grid-item bg-white z-depth-1 IT_1235587613"> 
+                    <div class="img-wrap" style="background-image: url('<?php  echo url('/')."/uploads/menu/".$mvalue['image'];?>');"></div>
+                        <div class="content-detail-wrap">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="veg-egg order-1">{{$mvalue['menu_title']}}</h4>
+                            </div>
+                            <div class="menu-item-text-wrap">
+                                <p class="menu-item-text mb-0 more">  </p>
+                            </div>
+                            <div class="nutridock-icon over-xs-limit">
+                                <div class="meal-icon">
+                                 <a href="" class="" data-toggle="tooltip" title="High Protein">  
+                                  <img src="{{url('')}}/assets/images/High-Protein.png" alt="High Protein"> 
+                                 </a> 
+                                 <a href="" class=""  data-toggle="tooltip" title="Gluten Free">  
+                                  <img src="{{url('')}}/assets/images/Gluten-Free.png" alt="Gluten Free"> 
+                                 </a> 
+                                 <a href="" class="" data-toggle="tooltip" title="Indian Super Food">  
+                                  <img src="{{url('')}}/assets/images/Indian-Super-Food.png" alt="Indian Super Food"> 
+                                 </a>  
+                                </div>
+                             </div>
 
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'html'
-        })
-        .done(function(data){
-            console.log(data); 
-            $('.modal-content').html(data); // load response 
-            $('#modal-loader').hide();        // hide ajax loader   
-        })
-        .fail(function(){
-            $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
-            $('#modal-loader').hide();
-        });
-    });
-});
-</script>
+                            <div class="d-flex menu-item-price-wrap justify-content-between mt-auto">
+                                <div class="foodpric-text order-1 d-flex">
+                                    <span class="foodpric display-block mr-1">
+                                        Rs {{$mvalue['menu_price']}}</span>
+                                    <span class="strikethrough-discount colorfontclass">
+                                </span>
+                                </div>
+                                <div class="menu-item-btn-wrap order-2 menu-item-btn-error">
+                                    <input type="hidden" name="price" id="price{{$i}}" value="{{$mvalue['menu_price']}}">
+                                    <input type="hidden" name="menu_id" id="menu_id{{$i}}" value="{{$mvalue['id']}}">
+                                    <a href="#" class="btn btn-success" onclick="addtocart({{$i}})">ADD TO CART</a>
+                                </div>                                                   
+                            </div> 
+                            
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <?php $i++;?>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @endforeach
+    </div>
+ </div>
+</div>
 @endsection
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{url('/admin_css_js')}}/css_and_js/admin/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+    loadCart();
+    caltotal();
+    });
+    function addtocart(num)
+    {    
+        var menu_id    = $('#menu_id'+num).val();
+        var price      = $('#price'+num).val();
+        var session_id = $('#session_id').val();
+        var login_id   = $('#login_id').val();
+        $.post("{{url('/')}}/addtocart",
+            {
+                menu_id    : menu_id,
+                price      : price,
+                session_id : session_id,
+                login_id   : login_id
+            },
+            function(data){
+                
+                //alert(data);
+                if(data==='success'){
+                    swal({ title: "Menu added to cart",icon: "success"});
+                    loadCart();
+                }
+                if(data==='duplicate')
+                {
+                    swal({ title: "Duplicate dish selected.",text:"Dish already added to cart",icon: "warning"}); 
+                }
+            }
+        );
+        return false;
+    }
+
+    function loadCart()
+    {
+        var session_id = $('#session_id').val();
+        var login_id   = $('#login_id').val();
+        $.post("{{url('/')}}/loadcartlist",
+            {
+                session_id : session_id,
+                login_id   : login_id
+            },
+            function(data){
+                /*data=data.split('{#}');*/
+                $('#cart_list').html(data);
+                /*$('#cartamount').html(data[1]);*/
+            }
+        );
+    } 
+
+    function deletecp(num)
+    {
+        swal({
+        title: "Remove Product",
+        text: "Are You sure to Delete",
+        icon: "warning",
+          buttons: [
+            'Cancel',
+            'Yes, change it!'
+          ],
+         
+        }).then(function(isConfirm) 
+        {
+          if (isConfirm) 
+          { 
+            var session_id = $('#session_id').val();
+            var login_id   = $('#login_id').val();
+            var menu_id    = $('#cpmenu_id'+num).val();
+            $.post("{{url('/')}}/delcartproduct",
+            {
+                session_id : session_id,
+                login_id   : login_id,
+                 menu_id   : menu_id
+            },
+            function(data){
+                swal({ title: "Deleted.",text:"Dish deleted on cart",icon: "success"}); 
+                loadCart();
+            }
+            );
+         }
+
+        });
+
+    }
+
+    function minusqty(num)
+    {
+        var  menu_id = $('#cpmenu_id'+num).val();
+        var  price   = $('#cpprice'+num).val();
+        var  qty     = $('#qty_number'+num).val();
+        var  fqty    = parseInt(qty)-1;
+        var  tprice  = parseInt(price) * fqty; 
+        if(fqty==0){
+            swal({ title: "Warning.",text:"Please select at least one quantity.",icon: "warning"}); 
+            $('#qty_number'+num).val(qty);
+            $('#total_price'+num).html(price);
+            $('#finalprice'+num).val(price);
+            return false;
+        }
+        else
+        {
+            $('#qty_number'+num).val(fqty);
+            $('#total_price'+num).html(tprice);
+            $('#finalprice'+num).val(tprice);
+        }
+         caltotal();
+    }
+
+    function plusqty(num)
+    {
+        var  menu_id = $('#cpmenu_id'+num).val();
+        var  price   = $('#cpprice'+num).val();
+        var  qty     = $('#qty_number'+num).val();
+        var  fqty    = parseInt(qty)+1;
+        var  tprice  = price * fqty; 
+      // alert(tprice);
+            $('#qty_number'+num).val(fqty);
+            $('#total_price'+num).html(tprice);
+            $('#finalprice'+num).val(tprice);
+         caltotal();
+    }
+
+    function caltotal()
+    {
+        var length = $("#cp").val();
+        var total = 0;
+        for ( var i = 1; i <= length; i++ )
+        {
+            total += parseFloat($('#finalprice'+i).val());
+            //alert("total"+total);
+
+        }
+       $('.totalamountclsval').html(total);
+       $('#cptotalamt').val(total);
+
+    }
+
+    
+</script>

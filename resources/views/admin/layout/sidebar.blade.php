@@ -150,6 +150,13 @@
             </span>
           </a>
         </li> -->
+        <li @if(Request::segment(2)=='manage_booklet' || Request::segment(2)=='add_booklet' || Request::segment(2)=='edit_booklet') class="active"@endif>
+          <a href="{{url('/admin')}}/add_booklet">
+          <i class="fa fa-comments"></i><span>Booklet</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
         <li @if(Request::segment(2)=='manage_push_notification' || Request::segment(2)=='add_push_notification' || Request::segment(2)=='edit_push_notification') class="active"@endif>
           <a href="{{url('/admin')}}/manage_push_notification">
           <i class="fa fa-comments"></i><span>Push Notification</span>
