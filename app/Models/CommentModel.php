@@ -10,9 +10,8 @@ class CommentModel extends Model
     protected $fillable = [
                             'name',
                             'email',
-                            'website',
-    	                    'message',
     	                    'blog_id',
+    	                    'comment_desc',
     	                    'created_at'
                           ];
 }

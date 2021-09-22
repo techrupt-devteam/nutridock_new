@@ -602,6 +602,23 @@ class MenuController extends Controller
         //return \Redirect::back();
     }
 
+    public function status_menu_home(Request $request)
+    {
+        $status  = $request->status;
+        $plan_id = $request->plan_ids;
+        $arr_data               = [];
+        if($status=="true")
+        {
+         $arr_data['show_home'] = 'y';
+        }
+        if($status=="false")
+        {
+         $arr_data['show_home'] = 'n';
+        }   
+        $this->base_model->where(['id'=>$plan_id])->update($arr_data);
+        //return \Redirect::back();
+    }
+
     //menu Details 
     public function details (Request $request)
     {

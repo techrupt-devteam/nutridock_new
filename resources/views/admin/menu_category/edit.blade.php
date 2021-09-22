@@ -50,6 +50,20 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-4">  <div class="box-body">
+                      <div class="form-group">
+                        <label for="name">Menu Category Image<span style="color:red;" >*</span></label>
+                         <div class="input-group">
+                           <input type="file" class="form-control" id="cat_image" name="cat_image" placeholder="Menu Category Image" >
+                            <input type="hidden" name="old_cat_image" value="{{$data['cat_image']}}">
+                            <div class="input-group-addon">
+                              <a data-fancybox="gallery" href="{{ url('/')}}/uploads/category/{{$data['cat_image']}}"><i class="fa fa-eye"></i></a>
+                            </div>
+                       </div>
+                       <div id="icon_error" style="color:red;"></div>
+                      </div>
+                  </div>
+                  </div>
                 </div>
               </div>  
               <!-- /.box-body -->
@@ -69,4 +83,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" />
 @endsection

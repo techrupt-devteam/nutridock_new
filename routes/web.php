@@ -21,38 +21,28 @@ Route::get('/clear', function(){
 
 
 /*********************************@BHUSHUAN FRONT ROUTES@**************************************/
-Route::get('/', 'HomeController@index');
-Route::post('addtocart','Front\CartController@addtocart');
-Route::post('loadcartlist','Front\CartController@loadcart');
-Route::post('delcartproduct','Front\CartController@deletcart');
+Route::get('/','HomeController@index');
+Route::get('/our-menu','MenuController@index');
+Route::get('/blog','BlogController@index');
+Route::get('blog_detail/{str}','BlogController@blog_detail');
+Route::get('category/{str}','BlogController@blog_catwise');
+Route::post('store_comment','BlogController@store_comment');
+Route::get('/our-store','StoreController@index');
+Route::get('/contact','HomeController@contact');
 
-
-
-Route::get('admin/', 							'Admin\AuthController@login');
-Route::get('admin/login', 						'Admin\AuthController@login');
-Route::post('admin/login_process', 				'Admin\AuthController@login_process');
-Route::get('admin/forget_password', 			'Admin\AuthController@forget_password');
-Route::post('admin/forget_password_process', 	'Admin\AuthController@forget_password_process');
-Route::get('admin/logout',		 				'Admin\AuthController@logout');
-Route::post('admin/capture_payment',		 	'Admin\MobileapiController@capture_payment');
-Route::post('admin/offer_capture_payment',		'Admin\MobileapiController@offer_capture_payment');
-Route::get('admin/hardcoded_receipt',		 	'Admin\MobileapiController@hardcoded_receipt');
-Route::post('/admin/getvarient',		 		'Admin\BookingController@getvarient');
-Route::post('/admin/getvarientnexa',		 	'Admin\BookingController@getvarientnexa');
-Route::post('/admin/getvarientcomm',		 	'Admin\BookingController@getvarientcomm');
-Route::post('/admin/getcolor',		 			'Admin\BookingController@getcolor');
-Route::post('/admin/getcolornexa',		 		'Admin\BookingController@getcolornexa');
-Route::post('/admin/getcolorcomm',		 		'Admin\BookingController@getcolorcomm');
-Route::post('/admin/getprice',		 			'Admin\BookingController@getprice');
-Route::get('/admin/change_password',		 	'Admin\AuthController@change_password');
-Route::post('/admin/change_password_process',	'Admin\AuthController@change_password_process');
-Route::post('/admin/getcity',		 			'Admin\BookingController@getcity');
-Route::post('/admin/getarea',		 			'Admin\BookingController@getarea');
-Route::post('/admin/getpincode',		 		'Admin\BookingController@getpincode');
-Route::post('get_city_list',	 		  'Admin\AuthController@get_city_list');
-Route::get('public/admin/login',	      'Admin\AuthController@login');
+Route::get('admin/','Admin\AuthController@login');
+Route::get('admin/login','Admin\AuthController@login');
+Route::post('admin/login_process','Admin\AuthController@login_process');
+Route::get('admin/forget_password','Admin\AuthController@forget_password');
+Route::post('admin/forget_password_process','Admin\AuthController@forget_password_process');
+Route::get('admin/logout','Admin\AuthController@logout');
+Route::get('/admin/change_password','Admin\AuthController@change_password');
+Route::post('/admin/change_password_process','Admin\AuthController@change_password_process');
+Route::post('get_city_list','Admin\AuthController@get_city_list');
+Route::get('public/admin/login','Admin\AuthController@login');
 
 /*********************************@BHUSHUAN ADMIN ROUTES@**************************************/
+
  Route::group(['prefix' => 'admin','middleware' => 'admin'], function () 
  {
 	
@@ -150,6 +140,7 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
  	 Route::post('/update_menu/{id}',	'Admin\MenuController@update');
 	 Route::get('/delete_menu/{id}', 	'Admin\MenuController@delete');
      Route::post('/status_menu',	    'Admin\MenuController@status');
+     Route::post('/status_menu_home',	    'Admin\MenuController@status_menu_home');
      Route::post('/menu_details',	    'Admin\MenuController@details');
 	
 	// Assign location wise menu Routes  
@@ -209,9 +200,9 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
 	Route::post('/getExpireSubscriberData',	  'Admin\SubscriberController@getExpireSubscriberData');
 
 	Route::get('/add_subscriber',		    'Admin\SubscriberController@add');
-    Route::post('/store_subscriber',	    'Admin\SubscriberController@store');
+	Route::post('/store_subscriber',	    'Admin\SubscriberController@store');
 	Route::get('/edit_subscriber/{id}',	    'Admin\SubscriberController@edit');
-    Route::post('/update_subscriber/{id}',  'Admin\SubscriberController@update');
+	Route::post('/update_subscriber/{id}',  'Admin\SubscriberController@update');
 	Route::get('/delete_subscriber/{id}',   'Admin\SubscriberController@delete');
 	Route::post('/getDuration',             'Admin\SubscriberController@no_of_days');
 	Route::post('/getplan_price',           'Admin\SubscriberController@getplan_price');
@@ -219,19 +210,19 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
 
 
 	
-    Route::post('/verify_subscriber',	    'Admin\SubscriberController@verify_subscriber');
-    Route::post('/subscriber_details',	    'Admin\SubscriberController@subscriber_details');
-    Route::get('/subscriber_pdf/{id}',	    'Admin\SubscriberController@subscriber_pdf');
-    Route::get('/subscriber_bill_pdf/{id}', 'Admin\SubscriberController@subscriber_bill_pdf');
-    
-    //Meal Program Subscriber 
-    Route::get('/add_subscriber_meal_program/{id}',   'Admin\SubscriberMealProgramController@add');
-    Route::post('/view_subscriber_meal_program',      'Admin\SubscriberMealProgramController@view_details');
-    Route::post('/store_subscriber_health_details',	  'Admin\SubscriberMealProgramController@store');
-    Route::post('/edit_subscriber_default_menu',	  'Admin\SubscriberMealProgramController@menu_edit');
-    Route::post('/get_menu_dropdown',				  'Admin\SubscriberMealProgramController@get_menu');
-    Route::post('/get_menu_macros',					  'Admin\SubscriberMealProgramController@get_menu_macros');
-    Route::post('/store_change_menu',				  'Admin\SubscriberMealProgramController@store_change_menu');
+	Route::post('/verify_subscriber',	    'Admin\SubscriberController@verify_subscriber');
+	Route::post('/subscriber_details',	    'Admin\SubscriberController@subscriber_details');
+	Route::get('/subscriber_pdf/{id}',	    'Admin\SubscriberController@subscriber_pdf');
+	Route::get('/subscriber_bill_pdf/{id}', 'Admin\SubscriberController@subscriber_bill_pdf');
+
+	//Meal Program Subscriber 
+	Route::get('/add_subscriber_meal_program/{id}',   'Admin\SubscriberMealProgramController@add');
+	Route::post('/view_subscriber_meal_program',      'Admin\SubscriberMealProgramController@view_details');
+	Route::post('/store_subscriber_health_details',	  'Admin\SubscriberMealProgramController@store');
+	Route::post('/edit_subscriber_default_menu',	  'Admin\SubscriberMealProgramController@menu_edit');
+	Route::post('/get_menu_dropdown',				  'Admin\SubscriberMealProgramController@get_menu');
+	Route::post('/get_menu_macros',					  'Admin\SubscriberMealProgramController@get_menu_macros');
+	Route::post('/store_change_menu',				  'Admin\SubscriberMealProgramController@store_change_menu');
    
     //set additional meal routes 
 	Route::post('/set_additional_meal1',   'Admin\SubscriberController@set_additional_meal');
@@ -240,12 +231,12 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
 
 
     //Subscriber Calender
-    Route::get('/manage_subscriber_calender', 'Admin\SubscriberCalenderController@index');
+	Route::get('/manage_subscriber_calender', 'Admin\SubscriberCalenderController@index');
 	Route::post('/getMealDetails',			  'Admin\SubscriberCalenderController@getMealDetails');
-    Route::get('/traits', 'Admin\DashboardController@traits');
+	Route::get('/traits', 'Admin\DashboardController@traits');
 
     //Order History 
-    Route::get('/manage_order',   'Admin\OrderHistoryController@index');
+	Route::get('/manage_order',   'Admin\OrderHistoryController@index');
 	Route::post('/order_details', 'Admin\OrderHistoryController@details');
 	Route::post('/order_resend',  'Admin\OrderHistoryController@order_resend');
 
@@ -276,7 +267,6 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
 	Route::post('/story_type_status',	      'Admin\StoryController@status');
 
 	//link 
-
 	Route::get('/manage_link',		  'Admin\LinkController@index');
 	Route::get('/add_link',		 	  'Admin\LinkController@add');
 	Route::post('/store_link',		  'Admin\LinkController@store');
@@ -292,7 +282,73 @@ Route::get('public/admin/login',	      'Admin\AuthController@login');
 	//Add booklet
 	Route::get('/add_booklet',	      'Admin\BookletController@add');
 	
+  //blog
+	Route::get('manage_blog','Admin\BlogController@index');
+	Route::post('store_blog','Admin\BlogController@store');
+	Route::get('add_blog','Admin\BlogController@create');
+	Route::get('comment/{id}','Admin\BlogController@comment');
+	Route::get('edit_blog/{id}','Admin\BlogController@edit');
+	Route::post('update_blog/{id}','Admin\BlogController@update');
+	Route::get('delete_blog/{id}','Admin\BlogController@delete');
+	Route::post('/status_blog',	  'Admin\BlogController@status');
+	
+	/* Route::get('blog/view-benefits/{id}''Admin\BlogController@view_benefits');
+	Route::post('benefits_store','Admin\BlogController@benefits_store');
+	Route::post('benefits_update/{id}','Admin\BlogController@benefits_update');
+	Route::get('benefits_delete/{id}','Admin\BlogController@benefits_delete');
+	Route::get('view-comments/{id}','Admin\BlogController@view_comments');
+	Route::post('comment_update/{id}''Admin\BlogController@comment_update');
+	Route::get('comment_delete/{id}','Admin\BlogController@comment_delete');
+	Route::post('approve_comments/{id}','Admin\BlogController@approve_comments');
+	Route::post('disapprove_comments/{id}','Admin\BlogController@disapprove_comments');*/
 
+	//catyegory
+	 Route::get('/manage_blogcategory',		  'Admin\BlogCategoryController@index');
+	 Route::get('/add_blogcategory',		  'Admin\BlogCategoryController@add');
+	 Route::post('/store_blogcategory',		  'Admin\BlogCategoryController@store');
+	 Route::get('/edit_blogcategory/{id}',	  'Admin\BlogCategoryController@edit');
+	 Route::post('/update_blogcategory/{id}', 'Admin\BlogCategoryController@update');
+	 Route::get('/delete_blogcategory/{id}',  'Admin\BlogCategoryController@delete');
+	 Route::post('/status_blogcategory',	  'Admin\BlogCategoryController@status');
+
+	 //store
+	 Route::get('/manage_store',		  'Admin\StoreController@index');
+	 Route::get('/add_store',		  'Admin\StoreController@add');
+	 Route::post('/store_store',		  'Admin\StoreController@store');
+	 Route::get('/edit_store/{id}',	  'Admin\StoreController@edit');
+	 Route::post('/update_store/{id}', 'Admin\StoreController@update');
+	 Route::get('/delete_store/{id}',  'Admin\StoreController@delete');
+	 Route::post('/status_store',	  'Admin\StoreController@status');
+	
+	//Testimonial 
+	 Route::get('/manage_testimonial','Admin\TestimonialController@index');
+	 Route::get('/add_testimonial','Admin\TestimonialController@add');
+	 Route::post('/store_testimonial','Admin\TestimonialController@store');
+	 Route::get('/edit_testimonial/{id}','Admin\TestimonialController@edit');
+	 Route::post('/update_testimonial/{id}','Admin\TestimonialController@update');
+	 Route::get('/delete_testimonial/{id}','Admin\TestimonialController@delete');
+	 Route::post('/status_testimonial','Admin\TestimonialController@status');
+	
+	 //Slider
+	Route::get('/manage_slider',		  			'Admin\SliderController@index');
+	Route::get('/add_slider',		 	  			'Admin\SliderController@add');
+	Route::post('/store_slider',		  			'Admin\SliderController@store');
+	Route::get('/view_slider/{id}',	 	  			'Admin\SliderController@view');
+	Route::get('/edit_slider/{id}',		  			'Admin\SliderController@edit');
+	Route::post('/update_slider/{id}',	  			'Admin\SliderController@update');
+	Route::post('/update_order_no/{id}',	  		'Admin\SliderController@order_no');
+	Route::get('/delete_slider/{id}',	  			'Admin\SliderController@delete'); 
+	Route::post('/status_banner',	  'Admin\SliderController@status');
+		 //Slider
+	Route::get('/manage_offer',		  			'Admin\OfferController@index');
+	Route::get('/add_offer',		 	  			'Admin\OfferController@add');
+	Route::post('/store_offer',		  			'Admin\OfferController@store');
+	Route::get('/view_offer/{id}',	 	  			'Admin\OfferController@view');
+	Route::get('/edit_offer/{id}',		  			'Admin\OfferController@edit');
+	Route::post('/update_offer/{id}',	  			'Admin\OfferController@update');
+	Route::post('/update_order_no1/{id}',	  		'Admin\OfferController@order_no');
+	Route::get('/delete_offer/{id}',	  			'Admin\OfferController@delete'); 
+	Route::post('/status_offer',	  'Admin\OfferController@status');
 	
 });
-/**********************************************************************************************/
+/*********************************************************************************************

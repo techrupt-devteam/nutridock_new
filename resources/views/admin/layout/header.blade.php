@@ -192,7 +192,7 @@
 
      /* var notificationsWrapper=$(".dropdown-notifications"),notificationsToggle=notificationsWrapper.find("a[data-toggle]"),notificationsCountElemVal=$("#notification_count").val(),notificationsCountElem=$("#notification_count_span").html(notificationsCountElemVal),notificationsCount=parseInt(notificationsCountElemVal),notificationsWrapperdrp=$(".dropdown-menu"),notifications=notificationsWrapperdrp.find("ul.menu"),pusher=new Pusher('{{env("MIX_PUSHER_APP_KEY")}}',{cluster:'{{env("PUSHER_APP_CLUSTER")}}',encrypted:!0}),channel=pusher.subscribe("notify-channel");channel.bind("App\\Events\\Notify",function(n){var i=notifications.html(),t=(Math.floor(52*Math.random()),'<li>\n          <a href="#">\n            <i class="fa fa-users text-aqua"></i> '+n.message+"\n          </a>\n        </li>\n        ");notifications.html(t+i),notificationsCount+=1,$("#notification_count_span").html(notificationsCount),$(".notif-count").html(notificationsCount),notificationsWrapper.show()});*/
 
-      function notification() 
+      /*function notification() 
       { 
         
          $.ajax({
@@ -211,9 +211,9 @@
               }
           });
       }
-      notification();   
+      notification();  
       var timerID = setInterval(function() {
         notification(); 
-      }, 5000);
+      }, 5000); */
     </script>
   </header>

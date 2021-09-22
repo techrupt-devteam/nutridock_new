@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,159 +31,142 @@ class BlogController extends Controller
 
     public function index()
     {
-        $data['seo_title'] = "Blog";
         $arr_data = [];
-        $obj_data = $this->BlogModel->orderby('id','DESC')->get();
-        if($obj_data)
-        {
-            $arr_data = $obj_data->toArray();
-        }
-        $data['arr_data']      = $arr_data;
+        $blog_data   = \DB::table('blog')
+                    ->leftjoin('categories','blog.category_id','=','categories.id')
+                    ->select('categories.name','blog.*')
+                    ->orderby('id','ASC')
+                    ->get()->toArray();
+
         /*Category*/
-        $cate_data = [];
-        $value     = \DB::table('categories')
-                        ->orderby('id','ASC')
-                        ->get();
-        if($value)
-        {
-            $cate_data = $value->toArray();
-        }
-        $data['cate_data']      = $cate_data;
+     //select count(`blog`.`category_id`)as cnt, `categories`.`name` from `categories`  right join `blog` on `blog`.`category_id` = `categories`.`id` GROUP BY `categories`.`id`
+        $cate_data     =  \DB::table('categories')
+                            ->rightjoin('blog','blog.category_id','=','categories.id')
+                            ->select('categories.name',DB::raw('COUNT(blog.category_id)as cnt'))
+                            ->groupby('categories.id')
+                            ->get()->toArray();
+    // dd($cate_data);
         /*Recent Data*/
-        $recent_data = [];
-        $recent_value     = \DB::table('blog')
-                        ->orderby('id','DESC')
-                        ->limit(3)
-                        ->get();
-        if($recent_value)
-        {
-            $recent_data = $recent_value->toArray();
-        }
-        $data['recent_data']  = $recent_data;
-        
+
+        $recent_data     = \DB::table('blog')
+                            ->orderby('id','DESC')
+                            ->limit(3)
+                            ->get()->toArray();
+      
+        $data['blog_data']   = $blog_data;
+        $data['recent_data'] = $recent_data;
+        $data['categories']  = $cate_data;
         return view('blog',$data);
     }
 
-    public function blog_detail($enc_id='')
+    public function blog_detail(Request $request,$str)
     {
+      
         $data['seo_title'] = "Blog Detail";
         //$id = base64_decode($enc_id);
         
-        $str = request()->segment(2);
+        $str = $request->str;
         
-        $string = preg_replace('/[^\p{L}\s0-9]/u',' ',$str);
+       //$string = preg_replace('/[^\p{L}\s0-9]/u',' ',$str);
         
         $arr_data = [];
-        $value     = \DB::table('blog')
-                        ->where('link',$string)
-                        ->get();
-        if(!empty($value))
-        {
-            $arr_data = $value->toArray();
-        }
-        $data['arr_data']      = $arr_data;
-        
-        $id='';
-        $data['meta_title'] = '';
-        $data['meta_keywords'] = '';
-        $data['meta_description'] = '';
-        foreach($data['arr_data'] as $row){
-            $id = $row->id; 
-            $data['meta_title'] = $row->meta_title; 
-            $data['meta_keywords'] = $row->meta_keywords; 
-            $data['meta_description'] = $row->meta_description; 
-        }
+        $blog_data   = \DB::table('blog')
+                    ->join('categories','blog.category_id','=','categories.id')
+                    ->where('link','=',$str)
+                    ->select('categories.name','blog.*')
+                    ->orderby('id','ASC')
+                    ->get()->toArray();
 
-        /*Benefits*/
-        $benefits_data = [];
-        $benefits_value     = \DB::table('benefits')
-                        ->where('blog_id',$id)
-                        ->get();
-        if(!empty($benefits_value))
-        {
-            $benefits_data = $benefits_value->toArray();
-        }
-        $data['benefits_data']      = $benefits_data;
-        /*Random Record*/
-        $random_data = [];
-        
-        if(!empty($random_value))
-        {
-            $random_data = $random_value->toArray();
-        }
-        $data['random_data']      = $random_data;
+        $data['blog_details']      = $blog_data[0];
 
-        /*Category*/
-        $cate_data = [];
-        $value     = \DB::table('categories')
-                        ->orderby('id','ASC')
-                        ->get();
-        if($value)
-        {
-            $cate_data = $value->toArray();
-        }
-        $data['cate_data']      = $cate_data;
-
-        /*Comments*/
-
-        /*Category*/
-        $row_data = [];
-        $row_value     = \DB::table('comments')
-                        ->select('id','name','blog_id','email')
-                        ->where('blog_id',$id)
-                        ->where('status','Active')
-                         ->where('is_deleted','No')
-                        ->orderby('id','ASC')
-                        ->get()->toArray();
-        if($row_value)
-        {
-            $row_data = $row_value;
-        }
-
-        $data['row_data']      = $row_data;
-
-        Arr::set($data,'comment',$row_data);
-    
-       foreach($row_data as $key => $row_data_dtl)
-       {
-           // $row_dtl_value     = \DB::table('comments_reply')->where('blog_id',$row_data_dtl->blog_id)->where('comment_id',$row_data_dtl->id)->orderby('id','ASC')->get()->toArray();
-        
-            $row_dtl_value     = \DB::table('comments_reply')->select('*','id AS comment_reply_id')->where('blog_id',$row_data_dtl->blog_id)->where('approve_status','Approve')->where('comment_id',$row_data_dtl->id)->orderby('id','ASC')->get()->toArray();
-            Arr::set($data['comment'],$key,$row_dtl_value);
-       }
-          
-       
-        $arr_data = [];
-        $value     = "SELECT comments_reply.id as comment_reply_id, comments.id as id, comments_reply.created_at as comments_reply_created_at,comments_reply.*,comments.* FROM comments_reply JOIN comments ON comments_reply.comment_id=comments.id group by comments_reply.comment_id";
-
-       
-        $data['comment_data'] = \DB::select(DB::raw($value));
-
-        $comment_id='';
-        $commentdata = $data['comment_data'];
-
-        if($commentdata)
-        {
-             foreach ($commentdata as $row) {
-            $comment_id = $row->id;
-            }
-            $max_value  = "SELECT * FROM comments_reply WHERE id=(SELECT MAX(id) FROM comments_reply where comment_id = $comment_id)";
-            $data['max_record'] = \DB::select(DB::raw($max_value));
-        }
-
+        /*Category*/     
+          $cate_data     =  \DB::table('categories')
+                            ->rightjoin('blog','blog.category_id','=','categories.id')
+                            ->select('categories.name',DB::raw('COUNT(blog.category_id)as cnt'))
+                            ->groupby('categories.id')
+                            ->get()->toArray();
+     
         /*Recent Data*/
-        $recent_data = [];
-        $recent_value     = \DB::table('blog')
-                        ->orderby('id','DESC')
-                        ->limit(3)
-                        ->get();
-        if($recent_value)
-        {
-            $recent_data = $recent_value->toArray();
-        }
-        $data['recent_data']  = $recent_data;
+        $recent_data        = \DB::table('blog')
+                              ->where('is_active','=',1)
+                              ->orderby('id','DESC')
+                              ->limit(3)
+                              ->get()->toArray();  
 
-        
-        return view('blog_detail', compact('id', $id), $data);
+        $related_blog_data  = \DB::table('blog')
+                              ->where('category_id','=',$blog_data[0]->category_id)
+                              ->where('id','!=',$blog_data[0]->id)
+                              ->orderby('id','DESC')
+                              ->limit(2)
+                              ->get()->toArray(); 
+        $comments  = \DB::table('comments')
+                             ->where('blog_id','=',$blog_data[0]->id)
+                              ->orderby('id','DESC')
+                              ->get()->toArray();
+      
+        $data['comments']      = $comments;
+        $data['recent_data']   = $recent_data;
+        $data['categories']    = $cate_data;
+        $data['related_blog']  = $related_blog_data;
+        return view('blog_detail', $data);
+    }
+
+    public function store_comment(Request $request)
+    {
+        $valstory_idator = Validator::make($request->all(), [
+                'name'    => 'required',
+                'email'   => 'required',
+                'comment_desc' => 'required'
+            ]);
+        if ($valstory_idator->fails()) 
+        {
+            return $valstory_idator->errors()->all();
+        }
+    
+        $arr_data                 = [];
+        $arr_data['name']         = $request->input('name');
+        $arr_data['email']        = $request->input('email');
+        $arr_data['blog_id']      = $request->input('blog_id');
+        $arr_data['comment_desc'] = $request->input('comment_desc');
+        $comment = $this->CommentModel->create($arr_data);
+        if(!empty($comment))
+        {
+           return "success";
+        }
+        else
+        {
+            return "fail";
+        }
+    }
+
+    public function blog_catwise(Request $request)
+    {
+        $arr_data = [];
+        $blog_data   = \DB::table('blog')
+                    ->leftjoin('categories','blog.category_id','=','categories.id')
+                    ->where('categories.name','=',$request->str)
+                    ->select('categories.name','blog.*')
+                    ->orderby('id','ASC')
+                    ->get()->toArray();
+
+        /*Category*/
+     //select count(`blog`.`category_id`)as cnt, `categories`.`name` from `categories`  right join `blog` on `blog`.`category_id` = `categories`.`id` GROUP BY `categories`.`id`
+        $cate_data     =  \DB::table('categories')
+                            ->rightjoin('blog','blog.category_id','=','categories.id')
+                            ->select('categories.name',DB::raw('COUNT(blog.category_id)as cnt'))
+                            ->groupby('categories.id')
+                            ->get()->toArray();
+    // dd($cate_data);
+        /*Recent Data*/
+
+        $recent_data     = \DB::table('blog')
+                            ->orderby('id','DESC')
+                            ->limit(3)
+                            ->get()->toArray();
+      
+        $data['blog_data']   = $blog_data;
+        $data['recent_data'] = $recent_data;
+        $data['categories']  = $cate_data;
+        return view('blog',$data);
     }
 }

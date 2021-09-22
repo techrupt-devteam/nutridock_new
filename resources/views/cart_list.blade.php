@@ -42,9 +42,9 @@
 
                     </div>
                 </div>
-                <?php 
-                    $total += $listvalue->rate;
-                ?>
+            <?php 
+                $total += $listvalue->qty*$listvalue->rate;
+            ?>
                 <div class="col-5 text-right item-total-price" >&nbsp;Rs <span id="total_price{{$cp}}">{{$listvalue->qty*$listvalue->rate}}</span></div>
                 <input type="hidden" name="finalprice"   id="finalprice{{$cp}}" value="{{$listvalue->qty*$listvalue->rate}}">
                 <?php  $cp++;?>
@@ -83,7 +83,7 @@
             </span>
             </div>
             <span class="order-2 checkout--btn--div colorcodeclass">
-               <a href="">  Checkout  </a>
+               <a href="{{url('/')}}/checkout">  Checkout  </a>
             </span>
         </div>
     </div>

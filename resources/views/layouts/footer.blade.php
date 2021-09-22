@@ -1,6 +1,6 @@
 
 </div>
-<div style="height: 20vh;">&nbsp;</div>
+<!-- <div style="height: 20vh;">&nbsp;</div> -->
 <div class="mobCart bgCart z-depth-1 colorcodeclass">
     <a class="nav-link cartbtnlink" onclick="carOpen()" style="">
         <div class="CartImg">
@@ -82,12 +82,113 @@
       <div class="modal-header colorcodeclass">
         <p class="heading lead colorcodeclass mb-0">Your order summary</p>
         <a href="javascript:void(0)" class="closebtnCart" onclick="closecart()">×</a>
-    </div> 
-    <div class="cart_wrap">   
-        <div id="cart_list">
-    
+    </div>    
+    <div class="cart_menu_body">
+        <div class="row">
+            <div class="col-4 mb-2">
+                <div class="crt-cnt-img">
+                    <div class="injectStyles-sc-1jy9bcf-0 cxiGXZ"></div>
+                    <img src="{{url('')}}/assets/images/tropical_COMPRESSED.jpg"/>
+                </div>
+            </div>
+            <div class="col-8 pl-0">
+                <div class="crt-cnt-descrptn">
+                    <span class="crt-cnt-descrptn-ttl">Farmhouse</span>
+                    <span class="crt-cnt-descrptn-txt">
+                        Delightful combination of onion, capsicum, tomato &amp; grilled mushroom
+                    </span>
+                    <div class="crt-cnt-descrptn-sz-crst">
+                        <span data-label="mini-cart-size">Medium</span> <span> | </span>
+                        <span data-label="mini-cart-crust">New Hand Tossed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-item row pt-2">
+            <div class="col-7 text-center cart-pricing-quant">
+                <div class="cart-item-add-delete-control">
+                    <div class="cart-del quantity-left-minus">
+                        <i class="fas fa-minus dark-grey-text"></i>
+                    </div>
+                    <div class="cart-pricing">
+                        <input type="number" step="1" class="form-control crtInpt no-spinners" value="1">
+                    </div>
+                    <div class="cart-del quantity-right-plus">
+                        <i class="fas fa-plus dark-grey-text"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 text-right item-total-price">&nbsp;Rs 330.00</div>
         </div>
     </div>
+
+    <div class="cart_menu_body">
+        <div class="row">
+            <div class="col-4 mb-2">
+                <div class="crt-cnt-img">
+                    <div class="injectStyles-sc-1jy9bcf-0 cxiGXZ"></div>
+                    <img src="{{url('')}}/assets/images/tropical_COMPRESSED.jpg"/>
+                </div>
+            </div>
+            <div class="col-8 pl-0">
+                <div class="crt-cnt-descrptn">
+                    <span class="crt-cnt-descrptn-ttl">Farmhouse</span>
+                    <span class="crt-cnt-descrptn-txt">
+                        Delightful combination of onion, capsicum, tomato &amp; grilled mushroom
+                    </span>
+                    <div class="crt-cnt-descrptn-sz-crst">
+                        <span data-label="mini-cart-size">Medium</span> <span> | </span>
+                        <span data-label="mini-cart-crust">New Hand Tossed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-item row pt-2">
+            <div class="col-7 text-center cart-pricing-quant">
+                <div class="cart-item-add-delete-control">
+                    <div class="cart-del quantity-left-minus">
+                        <i class="fas fa-minus dark-grey-text"></i>
+                    </div>
+                    <div class="cart-pricing">
+                        <input type="number" step="1" class="form-control crtInpt no-spinners" value="1">
+                    </div>
+                    <div class="cart-del quantity-right-plus">
+                        <i class="fas fa-plus dark-grey-text"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 text-right item-total-price">&nbsp;Rs 330.00</div>
+        </div>
+
+        
+    </div>
+        <div class="empty__cart d-none">
+            <div class="text-center">
+                <img src="{{url('')}}/assets/images/food-serving.png" style="max-width: 50%;display: ;" />
+                <h4 class="mt-4 mb-0">Your Cart is Empty</h4>
+                <p>Please add some items from the menu.</p> 
+            </div>
+        </div>
+        <div class="cartFot"> 
+            <div class="suggestionNots">
+               <textarea placeholder="Enter any additional information about your order." rows="4" cols="30">
+               </textarea> 
+            </div>
+                
+            <div class="d-flex justify-content-between align-items-center waves-effect waves-light" style="line-height: 1;">
+                <div class="order-1 py-1 cart-icon-wrap">
+                   <span class="d-inline-block pl-1"> 
+                    <span class="colorfontclass price-subtotal"> Subtotal : Rs 
+                        <span class="totalamountclsval">700.00</span>
+                    </span>
+                    <p class="mb-0 py-1 mt-1" style="font-size: 11px;">Extra charges may apply</p>
+                </span>
+                </div>
+                <span class="order-2 checkout--btn--div colorcodeclass">
+                   <a href="">  Checkout  </a>
+                </span>
+            </div>
+        </div>
  </div>
 <!-- End Cart checkout -->
 
@@ -224,16 +325,7 @@
         </div><!--end of container-->
     </div>
 </footer>
-<style>
-.cart_wrap {
-    max-height: 75vh !important;
-    overflow-x: hidden;
-    display: inline-flex;
-    height: 100%;
-    overflow-y: scroll;
-    width: 100%;
-}
-</style>
+
 
 
 <script>
@@ -366,23 +458,9 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- <script src="{{url('')}}/assets/js/order.js"></script> -->
 <script src="{{url('')}}/assets/js/popper.js" type="text/javascript"></script>    
 <script src="{{url('')}}/assets/js/bootstrap.js" type="text/javascript"></script>    
-<!-- <script src="{{url('')}}/assets/js/mdb.js" type="text/javascript"></script>  -->
-<!-- <script src="{{url('')}}/assets/js/common.js" type="text/javascript"></script>    
-<script src="{{url('')}}/assets/js/custom.js" type="text/javascript"></script>  -->
 <script src="{{url('')}}/assets/js/jquery.js" type="text/javascript"></script>    
 <script src="{{url('')}}/assets/js/jquery-loading-overlay.js" type="text/javascript"></script>    
 </body>
 </html>
-
-<!-- <script src="{{url('')}}/public/front/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="{{url('')}}/public/front/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="{{url('')}}/public/front/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="{{url('')}}/public/front/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="{{url('')}}/public/front/vendor/venobox/venobox.min.js"></script>
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script src="{{url('')}}/public/front/js/main.js"></script>
-<script src="{{ url('/admin_css_js')}}/css_and_js/admin/parsley.js"></script>
- -->

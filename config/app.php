@@ -242,5 +242,14 @@ return [
 
 
     ],
+    
+    'project'=>
+    [
+        'name'                => 'Seva Test',
+        'img_path'            => [
+                                    'product_image'          => '/uploads/images/'
+                                 ],
+    ],
+
 
 ];

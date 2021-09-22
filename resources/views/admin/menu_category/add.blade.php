@@ -44,6 +44,14 @@
                          <div id="name_error" style="color:red;"></div>
                       </div>
                   </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="name">Menu Category Image<span style="color:red;" >*</span></label>
+                        <input type="file" class="form-control" id="cat_image" name="cat_image" placeholder="Category Image" required="true" data-parsley-errors-container="#icon_error" data-parsley-error-message="Please upload category">
+                         <div id="icon_error" style="color:red;"></div>
+                     
+                    </div>
+                  </div>
                 </div>
               </div>  
               <div class="box-footer">

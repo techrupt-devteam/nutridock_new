@@ -9,6 +9,9 @@ use Session;
 use Sentinel;
 use Validator;
 use DB;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Input;
+use Image;
 class MenuCategoryController extends Controller
 {
     public function __construct(MenuCategoryModel $MenuCategoryModel)
@@ -67,11 +70,37 @@ class MenuCategoryController extends Controller
             Session::flash('error', $this->Is_exists);
             return \Redirect::back();
         }
+
+
+        $cat_img              = Input::file('cat_image');
+        //random number genrate 
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
         $arr_data                 = [];
-        $arr_data['name']   = $request->input('name');
+        $arr_data['name']         = $request->input('name');
+        $arr_data['cat_image']    = $randomString."".$cat_img->getClientOriginalName();
+
         $role = $this->base_model->create($arr_data);
         if(!empty($role))
         {
+
+            $destinationPath = 'uploads/category/';
+            $destinationPathThumb = $destinationPath . 'thumb/';
+            $filename_cat = $cat_img->getClientOriginalName();
+            $original_cat = $cat_img->move($destinationPath,$randomString."".$filename_cat);
+            
+            //thumbnail create menu
+            $menu_thumb = Image::make($original_cat->getRealPath())
+            ->resize(600,404)
+            ->save($destinationPathThumb . $randomString."".$filename_cat);
+
+
             Session::flash('success', $this->Insert);
             return \Redirect::to('admin/manage_menucategory');
         }
@@ -117,10 +146,63 @@ class MenuCategoryController extends Controller
             return \Redirect::back();
         }
         $arr_data               = [];
+         $cat_img              = Input::file('cat_image');
+        //random number genrate 
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        
+        for ($i = 0; $i < 18; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+
+
+        }
+
+       if(isset($_FILES['cat_image']["name"]) && !empty($_FILES['cat_image']["name"]))
+        { 
+            $arr_data['cat_image']  = $randomString."".$cat_img->getClientOriginalName();
+        }
+        else
+        {
+            $arr_data['cat_image']  = $request->input('old_cat_image');
+        }
+
         $arr_data['name']   = $request->input('name');
         $module_update = $this->base_model->where(['id'=>$id])->update($arr_data);
-        Session::flash('success',$this->Update );
-        return \Redirect::to('admin/manage_menucategory');        
+
+        if (!empty($module_update))
+        {   
+
+            $destinationPath = 'uploads/category/';
+            $destinationPathThumb = $destinationPath . 'thumb/';
+
+            if(isset($_FILES['cat_image']["name"]) && !empty($_FILES['cat_image']["name"]))
+            {
+              
+                $filename_cat = $cat_img->getClientOriginalName();
+                $original_cat = $cat_img->move($destinationPath, $randomString."".$filename_cat);
+                    
+                //thumbnail create menu
+                $menu_thumb = Image::make($original_cat->getRealPath())
+                ->resize(600,404)
+                ->save($destinationPathThumb . $randomString."".$filename_cat);
+                
+              //  unlink($destinationPath."".$request->input('old_cat_image'));
+              //  unlink($destinationPathThumb."".$request->input('old_cat_image'));
+
+            }
+
+            Session::flash('success',$this->Update );
+            return \Redirect::to('admin/manage_menucategory'); 
+        }
+        else
+        {
+            Session::flash('error',$this->Error);
+            return \Redirect::back();
+        }
+
+
+               
     }
 
     // Menu category delete function

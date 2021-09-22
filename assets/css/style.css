@@ -19,131 +19,21 @@
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
 }
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
-  border-radius: 5px;
-}/*
-header.site-header {
-  margin: 0;
-  width: 100%;
-  clear: both;
-  top: 40px;
-  z-index: 100;
-}
-.site-top-bar {
-  margin: 0;
-  padding: 0;
-  display: block;
-  width: 100%;
-  clear: both;
-  background: rgba(0, 0, 0, 0.8);
-  min-height: 40px;
-  line-height: 40px;
-  height: 30px;
-  z-index: 1000;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-.site-top-bar span {
-  font-size: 14px;
-  color: #ecebeb;
-  line-height: 18px;
-  font-weight: 600;
-  text-align: left;
-  position: relative;
-}
-.site-top-bar span:after {
-  content: "";
-  height: 1px;
-  background: white;
-  position: relative;
-  top: -4px;
-  width: 0;
-  transition: 400ms ease;
-  transition-property: width;
-  margin: 0 auto;
-  display: none;
-}
-.site-top-bar span:hover:after {
-  width: 100%;
-}
-.site-top-bar i.fa {
-  font-size: 13px;
-  font-family: "FontAwesome", serif;
-  color: #deb150;
-  line-height: 2.231;
-  text-align: left;
-  margin-right: 6px;
-}
-.site-top-bar .site-top-bar-left-section {
-  text-align: left;
-}
-.site-top-bar .site-top-bar-right-section {
-  text-align: right;
-}
-.site-top-bar .row.justify-content-between {
-  min-height: 40px;
-}
-.innrSlectWrp {
-  max-width: 300px;
-  z-index: 99;
-}
-.bgCart a {
-  height: 100%;
-}
-.fixed-sn main {
-  padding-top: 2rem;
-}*/
 
 .stickyActive {
   height: 80px;
   display: block;
   width: 100%;
 }
-/*.navbar {
-  background-color: rgba(0, 0, 0, 0.2);
+
+.page-content-list .col.col-left-sidebar .left_category_nav ul li {
+    display: inline-flex;
 }
-.relative {
-  position: relative;
-}
-.top-nav-collapse {
-  background-color: #1c2331;
-}*/
 .bgImg {
   background-image: url("../img/bgImg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
-/*.navbar {
-  background-color: rgba(56, 55, 55, 0.7);
-}
-.navbar .navbar-brand > img,
-.navbar .navbar-brand > img {
-  max-height: 65px !important;
-  margin-top: -2px !important;
-  min-height: 60px;
-}
-.btn.btn-lg .fa {
-  font-size: 1.2rem;
-}
-.btn {
-  font-weight: 500;
-  margin: 0px;
-}
-.btn.btn-sm {
-  font-weight: 600;
-}
-.fa.fa-inr {
-  margin: 0 2px 0 0px;
-}
-.additem {
-  margin: 0px;
-}
-ul.navbar-nav.ml-auto.nav-flex-icons.mobCart {
-  display: none;
-}*/
 .heading.lead {
   text-transform: capitalize;
   font-weight: 400;
@@ -216,18 +106,12 @@ select option {
 .nav-link.btn-outline-info {
   color: #fff !important;
 }
-.btn.btn-lg {
-  padding: 0.5rem 2rem;
-  font-size: 0.9rem;
-}
+
 .bgColor {
   background: rgba(56, 55, 55, 0.7);
   padding: 30px 0;
   border-radius: 5px;
   color: #fff;
-}
-.border {
-  border: 1.5px solid !important;
 }
 .select-wrapper span.caret {
   right: 1.2rem;
@@ -650,7 +534,10 @@ hr {
   visibility: hidden;
 }
 .OrdBg {
-  background-image: url(../images/bgImg1.jpg);
+  /*background-image: url(../images/bgImg1.jpg);*/
+  background-image: url(../images/food_doodles.png);
+  background-color: #8dd126b5;
+  background-size: contain;
 }
 .cusPadd {
   padding: 0px 3px 0 11px;
@@ -936,13 +823,6 @@ input[type="number"] {
   margin-bottom: 0;
 }
 
-.form-group input.form-control {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  border-radius: 0px;
-  padding: 0.4rem 0.2rem;
-  font-size: 16px;
-}
 .form-group label {
   margin-bottom: 0px;
 }
@@ -957,9 +837,6 @@ input[type="number"] {
   font-size: 14px;
 }
 
-.form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(228, 228, 228, 0.06);
-}
 .addondivupdate .row.addonsSeclt {
   margin: 0px;
 }
@@ -1499,7 +1376,97 @@ figure.Imgwrap {
     padding-left: 0rem;
   }
 }
-
+@media only screen and (min-width: 1300px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+.codedata .cwrap {
+    padding: 2px;
+    border: 2px dashed #ddd;
+}
+ .card{
+  width: 200px;
+  height: 200px;
+  position: relative;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 50%; 
+ }    
+  
+.base, #scratch {
+  cursor: default;
+  height:100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grabbing;
+  border-radius: 50%; 
+}
+.couponbutton.clearfix {
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    font-weight: 600;
+    color: #68d24f;
+    border: 1px dashed #bebebe;
+}
+.btn-copy {
+    width: 60px;
+    display: inline-block;
+    background-color: #161c27;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px;
+    border: 0px;
+}
+#scratch {
+    cursor: url(//jennamolby.com/scratch-and-win/images/coin1.png) 5 5, default;
+}
+.offer_coupon {
+    padding: 5px;
+    text-align: center;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 39px;
+    width: 90%;
+    margin: 5px auto;
+    font-size: 12px;
+}
+.card .base img {
+    width: 60px;
+    margin: 11px auto;
+    display: block;
+    border-radius: 50%;
+    height: 60px;
+}
+.btn-peal .corner {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    top: -2px;
+    right: -2px;
+    z-index: 9;
+    background: linear-gradient(to left bottom, #d6dadc 48%, #6d6a6a 50%);
+    overflow: hidden;
+    transition: all .15s ease-out;
+}
+.btn-peal:hover .corner {
+    width: 24px;
+    height: 24px;
+}
+#scratch {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
 @media only screen and (min-width: 1023px) and (max-width: 1398px) {
   #variationaddonpopupmodal.modal .modal-full-height .modal-content {
     max-height: 560px;

@@ -36,6 +36,7 @@
                   <th width="10%">Sr.No.</th>
                   <th>Menu Category</th>
                   <th>Menu Title</th>
+                  <th class="text-center">Show Home</th>
                   <th class="text-center" width="30%" >Action</th>
                 </tr>
                 </thead>
@@ -46,8 +47,16 @@
                       <td width="10%">{{$key+1}}</td>
                       <td>{{$value->name}}</td>
                       <td>{{$value->menu_title}}</td>
+                      <td class="text-center"> @if($value->show_home=='Y')
+                           @php $checked1="checked"; $style="success"; @endphp 
+                        @else
+                           @php $checked1=""; $style="danger";@endphp 
+                        @endif
+                        <input type="checkbox" {{$checked1}} data-toggle="toggle" data-onstyle="success" title="status" onchange="home_Status(<?php echo $key+1; ?>,<?php echo $value->id; ?>);" data-offstyle="danger" id="{{$key+1}}_is_active1" data-size="small" data-style="slow" ></td>
                     
                       <td class="text-center" width="30%">
+                        
+
                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-details" onclick="viewDetails(<?php echo $value->id;?>);"><i class="fa fa-info-circle"></i> Menu Details</button>
                          @if($value->is_active==1)
                            @php $checked="checked"; $style="success"; @endphp 
@@ -130,6 +139,52 @@
             }else{
               $("#"+id+"_is_active").closest('div').removeClass(className);
                $("#"+id+"_is_active").closest('div').addClass('toggle btn btn-sm slow btn-danger off');
+            }
+          }
+        });
+
+
+     } 
+
+    function home_Status(id,plan_id) 
+    {  
+      
+      swal({
+        title: "Set Home Menu",
+        text: "Are You sure to show home page",
+        icon: "warning",
+          buttons: [
+            'Cancel',
+            'Yes, change it!'
+          ],
+         
+        }).then(function(isConfirm) {
+          if (isConfirm) 
+          { 
+            
+            var status = $("#"+id+"_is_active1").prop('checked');
+            var plan_ids = plan_id;
+            //alert(status);
+             $.ajax({
+                  url: "{{url('/admin')}}/status_menu_home",
+                  type: 'post',
+                  data: {status:status,plan_ids:plan_id},
+                  success: function (data) 
+                  {
+                    swal("Success", "Menu show home successfully changed !", "success");
+                  }
+              });
+                
+          } else {
+               
+            var className = $("#"+id+"_is_active1").closest('div').prop('className');
+           
+            if(className == "toggle btn btn-sm slow btn-danger off"){
+               $("#"+id+"_is_active1").closest('div').removeClass(className);
+               $("#"+id+"_is_active1").closest('div').addClass('toggle btn btn-success btn-sm slow');
+            }else{
+              $("#"+id+"_is_active1").closest('div').removeClass(className);
+               $("#"+id+"_is_active1").closest('div').addClass('toggle btn btn-sm slow btn-danger off');
             }
           }
         });

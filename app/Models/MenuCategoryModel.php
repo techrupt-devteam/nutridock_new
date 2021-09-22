@@ -5,6 +5,6 @@ class MenuCategoryModel extends Model
 {
     protected $table = 'menu_categories';
     protected $primaryKey  = "id";
-    protected $fillable = ['name','is_active'];
+    protected $fillable = ['name','cat_image','is_active'];
 }
 

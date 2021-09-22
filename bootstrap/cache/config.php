@@ -92,6 +92,14 @@
       'PDF' => 'niklasravnsborg\\LaravelPdf\\Facades\\Pdf',
       'Chatify' => 'Chatify\\Facades\\ChatifyMessenger',
     ),
+    'project' => 
+    array (
+      'name' => 'Seva Test',
+      'img_path' => 
+      array (
+        'product_image' => '/uploads/images/',
+      ),
+    ),
   ),
   'auth' => 
   array (

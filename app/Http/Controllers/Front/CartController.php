@@ -103,6 +103,37 @@ class CartController extends Controller
 
 
     }
+    //
+    public function UpdateQty(Request $request)
+    {
+        $sessionid   = Session::getId();
+        $usersrno    = $request->input('login_id');
+        $menu_id     = $request->input('menu_id');
+        $qty         = $request->input('qty1');
+        $price       = $request->input('price1');
+
+
+        if(!empty($usersrno))
+        {
+            $arr_data['qty']  = $qty;
+           // $arr_data['rate']  = $price;
+            $menu_update = $this->base_model
+                          ->where(['menu_id'=>$request->input('menu_id'),'usersrno'=>$usersrno])
+                          ->update($arr_data);
+            return "success";
+        }else
+        {
+
+            $arr_data['qty']  = $qty;
+            //$arr_data['rate']  = $price;
+            $menu_update = $this->base_model
+                          ->where(['menu_id'=>$request->input('menu_id'),'sessionid'=>Session::getId()])
+                          ->update($arr_data);
+            return "success";              
+        }
+    
+
+    }
    
 
     

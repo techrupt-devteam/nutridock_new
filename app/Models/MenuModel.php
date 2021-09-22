@@ -24,7 +24,8 @@ class MenuModel extends Model
                             'proteins',
                             'fats',
                             'carbohydrates',
-                            'is_active'
+                            'is_active',
+                            'show_home'
                         ];
 }
 	

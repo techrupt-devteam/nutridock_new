@@ -40,20 +40,19 @@
 
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-      @if($session_user->roles=='admin')
         <li @if(Request::segment(2)=='dashbord') class="active" @endif>
           <a href="{{url('/admin')}}/dashbord">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li @if(Request::segment(2)=='manage_notification'|| Request::segment(2)=='notification') class="active" @endif>
+       <!--  <li @if(Request::segment(2)=='manage_notification'|| Request::segment(2)=='notification') class="active" @endif>
           <a href="{{url('/admin')}}/manage_notification">
             <i class="fa fa-bell"></i> <span>Notification</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red notif-count">0</small>
             </span>
           </a>
-        </li>
+        </li> -->
       
       <!-- <li class="treeview ">
             <a href="#">
@@ -150,14 +149,44 @@
             </span>
           </a>
         </li> -->
-        <li @if(Request::segment(2)=='manage_booklet' || Request::segment(2)=='add_booklet' || Request::segment(2)=='edit_booklet') class="active"@endif>
+        <li @if(Request::segment(2)=='manage_slider' || Request::segment(2)=='add_slider' || Request::segment(2)=='edit_slider') class="active"@endif>
+          <a href="{{url('/admin')}}/manage_slider">
+         <i class="fa fa-folder"></i><span>Slider</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li> 
+        <li @if(Request::segment(2)=='manage_offer' || Request::segment(2)=='add_offer' || Request::segment(2)=='edit_offer') class="active"@endif>
+          <a href="{{url('/admin')}}/manage_offer">
+         <i class="fa fa-folder"></i><span>Offer</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+        <li @if(Request::segment(2)=='manage_testimonial' || Request::segment(2)=='add_testimonial' || Request::segment(2)=='edit_testimonial') class="active"@endif>
+          <a href="{{url('/admin')}}/manage_testimonial">
+         <i class="fa fa-folder"></i><span>Testimonial</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+
+
+        <!-- <li @if(Request::segment(2)=='manage_booklet' || Request::segment(2)=='add_booklet' || Request::segment(2)=='edit_booklet') class="active"@endif>
           <a href="{{url('/admin')}}/add_booklet">
           <i class="fa fa-comments"></i><span>Booklet</span>
             <span class="pull-right-container">
             </span>
           </a>
+        </li> --> 
+        <li @if(Request::segment(2)=='manage_store' || Request::segment(2)=='add_store' || Request::segment(2)=='edit_store') class="active"@endif>
+          <a href="{{url('/admin')}}/manage_store">
+          <i class="fa fa-map-marker"></i><span>Store</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
         </li>
-        <li @if(Request::segment(2)=='manage_push_notification' || Request::segment(2)=='add_push_notification' || Request::segment(2)=='edit_push_notification') class="active"@endif>
+       <!--  <li @if(Request::segment(2)=='manage_push_notification' || Request::segment(2)=='add_push_notification' || Request::segment(2)=='edit_push_notification') class="active"@endif>
           <a href="{{url('/admin')}}/manage_push_notification">
           <i class="fa fa-comments"></i><span>Push Notification</span>
             <span class="pull-right-container">
@@ -170,7 +199,7 @@
             <span class="pull-right-container">
             </span>
           </a>
-        </li>
+        </li> -->
        <li class="treeview  @if(Request::segment(2)=='manage_menucategory' || Request::segment(2)=='add_menucategory' || Request::segment(2)=='edit_menucategory'||Request::segment(2)=='manage_menu_specification' || Request::segment(2)=='add_menu_specification' || Request::segment(2)=='edit_menu_specification'||Request::segment(2)=='manage_menu' || Request::segment(2)=='add_menu' || Request::segment(2)=='edit_menu'|| Request::segment(2)=='add_location' || Request::segment(2)=='edit_location'||Request::segment(2)=='manage_plan' || Request::segment(2)=='add_plan' || Request::segment(2)=='edit_plan'|| Request::segment(2)=='manage_assign_location_menu' || Request::segment(2)=='add_assign_location_menu' || Request::segment(2)=='edit_assign_location_menu'||Request::segment(2)=='manage_kitchen1' || Request::segment(2)=='add_kitchen1' || Request::segment(2)=='edit_kitchen1'||Request::segment(2)=='manage_assign_sub_plan_menu1' || Request::segment(2)=='add_assign_sub_plan_menu1' || Request::segment(2)=='edit_assign_sub_plan_menu1') active @endif ">
             <a href="#">
               <i class="fa fa-cutlery"></i> <span>Menu</span>
@@ -212,6 +241,32 @@
               </li> -->
             </ul>
         </li>  
+<li class="treeview  @if(Request::segment(2)=='manage_blogcategory' || Request::segment(2)=='add_blogcategory' || Request::segment(2)=='edit_blogcategory'||Request::segment(2)=='manage_blog' || Request::segment(2)=='add_blog' || Request::segment(2)=='edit_blog'|| Request::segment(2)=='comment') active @endif ">
+            <a href="#">
+              <i class="fa fa-folder"></i><span>Blog</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span> 
+            </a>
+            <ul class="treeview-menu">
+              <li @if(Request::segment(2)=='manage_blogcategory' || Request::segment(2)=='add_blogcategory' || Request::segment(2)=='edit_blogcategory') class="active" @endif>
+                <a href="{{url('/admin')}}/manage_blogcategory">
+                  <i class="fa fa-circle-o"></i> <span>Blog Category</span>
+                  <span class="pull-right-container">
+                  </span>
+                </a>
+              </li>
+               <li @if(Request::segment(2)=='manage_blog' || Request::segment(2)=='add_blog' || Request::segment(2)=='edit_blog' || Request::segment(2)=='comment') class="active" @endif>
+                <a href="{{url('/admin')}}/manage_blog">
+                  <i class="fa fa-circle-o"></i> <span>Blog</span>
+                  <span class="pull-right-container">
+                  </span>
+                </a>
+              </li>
+            </ul>
+        </li>
+
+
 
        
         <li class="treeview  @if(Request::segment(2)=='manage_nutritionsit' || Request::segment(2)=='add_nutritionsit' || Request::segment(2)=='edit_nutritionsit'||Request::segment(2)=='manage_operation_manager' || Request::segment(2)=='add_operation_manager' || Request::segment(2)=='edit_operation_manager'||Request::segment(2)=='manage_subscription_plan' || Request::segment(2)=='add_subscription_plan' || Request::segment(2)=='edit_subscription_plan'||Request::segment(2)=='manage_location' || Request::segment(2)=='add_location' || Request::segment(2)=='edit_location'||Request::segment(2)=='manage_plan' || Request::segment(2)=='add_plan' || Request::segment(2)=='edit_plan'||Request::segment(2)=='manage_user_manager' || Request::segment(2)=='add_user_manager' || Request::segment(2)=='edit_user_manager') active @endif ">
@@ -229,13 +284,13 @@
                   </span>
                 </a>
               </li> -->
-              <li @if(Request::segment(2)=='manage_user_manager' || Request::segment(2)=='add_user_manager' || Request::segment(2)=='edit_user_manager') class="active" @endif>
+            <!--   <li @if(Request::segment(2)=='manage_user_manager' || Request::segment(2)=='add_user_manager' || Request::segment(2)=='edit_user_manager') class="active" @endif>
                 <a href="{{url('/admin')}}/manage_user_manager">
                   <i class="fa fa-circle-o"></i> <span>User Manager</span>
                   <span class="pull-right-container">
                   </span>
                 </a>
-              </li>
+              </li> -->
          <!--      <li @if(Request::segment(2)=='manage_subscription_plan' || Request::segment(2)=='add_subscription_plan' || Request::segment(2)=='edit_subscription_plan') class="active" @endif>
                 <a href="{{url('/admin')}}/manage_subscription_plan">
                   <i class="fa fa-circle-o"></i> <span>Subscription Plan</span>
@@ -285,7 +340,7 @@
               </li>
             </ul>
           </li> -->
-         <li class="treeview  @if(Request::segment(2)=='manage_module' || Request::segment(2)=='add_module' || Request::segment(2)=='edit_module' ||Request::segment(2)=='manage_role' || Request::segment(2)=='add_role' || Request::segment(2)=='edit_role'||Request::segment(2)=='manage_permission' || Request::segment(2)=='add_permission' || Request::segment(2)=='edit_permission') active @endif ">
+         <!-- <li class="treeview  @if(Request::segment(2)=='manage_module' || Request::segment(2)=='add_module' || Request::segment(2)=='edit_module' ||Request::segment(2)=='manage_role' || Request::segment(2)=='add_role' || Request::segment(2)=='edit_role'||Request::segment(2)=='manage_permission' || Request::segment(2)=='add_permission' || Request::segment(2)=='edit_permission') active @endif ">
             <a href="#">
               <i class="fa fa-sitemap"></i> <span>Role Setting</span>
               <span class="pull-right-container">
@@ -326,79 +381,16 @@
           <ul class="treeview-menu">
             <li @if(Request::segment(2)=='manage_gst' || Request::segment(2)=='add_gst' || Request::segment(2)=='edit_gst' ) class="active" @endif><a href="{{url('/admin')}}/manage_gst"><i class="fa fa-circle-o"></i>GST Master</a></li>
           </ul>
-        </li>
+        </li> -->
        <!--  <li>
           <a href="{{url('/public')}}/chatify" target="_blank">
             <i class="glyphicon glyphicon-comment"></i><span>Messager</span>
           </a>
         </li> -->
 
-    @else
-<!--------------------Dynamic Menu with permission---------------------->
-      <li @if(Request::segment(2)=='dashbord') class="active" @endif>
-        <a href="{{url('/admin')}}/dashbord">
-          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-        </a>
-      </li>
-      <li @if(Request::segment(2)=='manage_notification' || Request::segment(2)=='notification') class="active" @endif>
-          <a href="{{url('/admin')}}/manage_notification">
-            <i class="fa fa-bell"></i> <span>Notification</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red notif-count">0</small>
-            </span>
-          </a>
-        </li>
-        @foreach($session_parent_menu as $parent_value)
-          @if(!empty($parent_value[1]))
-            @if(isset($session_permissions) && in_array($parent_value[2],$session_permissions) && !empty($session_permissions))
-              <li @if(Request::segment(2)=='manage_'.$parent_value[3] || Request::segment(2)=='add_'.$parent_value[3] || Request::segment(2)=='edit_'.$parent_value[3]) class="active" @endif>
-                <a href="{{url('/admin')}}/{{$parent_value[1]}}">
-                  <i class="fa fa-television"></i> <span>{{$parent_value[0]}}</span>
-                </a>
-              </li>
-             @endif
-          @else
-          <?php
-            $active_menu = explode(",",$parent_value[3]);
-          ?>
-          <li class="treeview <?php foreach($active_menu as $acvalue){?>@if(Request::segment(2)=='manage_'.$acvalue || Request::segment(2)=='add_'.$acvalue || Request::segment(2)=='edit_'.$acvalue) active @endif<?php }?>">
-              @if(isset($session_permissions) && in_array($parent_value[2],$session_permissions) && !empty($session_permissions) )
-                <a href="#">
-                  <i class="fa fa-folder"></i> <span>{{$parent_value[0]}}</span>
-                  <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-              @endif
-              <ul class="treeview-menu">
-                @foreach($session_sub_menu[$parent_value[0]] as $sub_value)
-                  @foreach($sub_value as $sub_menu)
+  
 
-                    @if(isset($session_permissions) && in_array($sub_menu[0],$session_permissions) && !empty($session_permissions))
-                    <li @if(Request::segment(2)=='manage_'.$sub_menu[3] || Request::segment(2)=='add_'.$sub_menu[3] || Request::segment(2)=='edit_'.$sub_menu[3] || Request::segment(2)=='add_subscriber_meal_program') class="active" @endif>
-                    
-                      <a href="{{url('/admin')}}/{{$sub_menu[2]}}">
-                         <i class="fa fa-circle-o"></i> <span>{{$sub_menu[1]}}</span>
-                        <span class="pull-right-container">
-                        </span>
-                      </a>
-                    
-                      
-                    </li> 
-                    @endif
-                  @endforeach 
-                @endforeach
-               </ul>
-            </li>
-           @endif 
-         @endforeach
-    @endif
-      <!--   <li>
-          <a href="{{url('/admin')}}/chatify" target="_blank">
-            <i class="glyphicon glyphicon-comment"></i><span>Messager</span>  <small class="label pull-right bg-yellow msg-count">0</small>
-          </a>
-        </li> -->
-
+    
         <li class="treeview @if(Request::segment(2)=='change_password') active @endif">
           <a href="#">
             <i class="fa fa-gear"></i> <span>Setting</span>
